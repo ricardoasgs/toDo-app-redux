@@ -1,16 +1,16 @@
 import axios from "axios";
-
-const URL = "http://localhost:3003/api/todo";
+import { DESCRIPTION_CHANGED, TODO_CLEAR, TODO_SEARCHED } from "./types";
+import { URL } from "../Config/constants";
 
 export const changeDescription = event => ({
-  type: "DESCRIPTION_CHANGED",
+  type: DESCRIPTION_CHANGED,
   payload: event.target.value
 });
 
 export const search = description => {
   const search = description ? `&description__regex=/${description}/` : "";
   const request = axios.get(`${URL}?sort=-createdAt${search}`);
-  return { type: "TODO_SEARCHED", payload: request };
+  return { type: TODO_SEARCHED, payload: request };
 };
 
 export const add = description => {
@@ -43,5 +43,5 @@ export const markAsPending = (todo, description) => {
 };
 
 export const clear = () => {
-  return [{ type: "TODO_CLEAR" }, search()];
+  return [{ type: TODO_CLEAR }, search()];
 };

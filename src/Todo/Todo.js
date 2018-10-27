@@ -4,10 +4,12 @@ import PageHeader from "../Template/PageHeader";
 import TodoForm from "./TodoForm";
 import TodoList from "./TodoList";
 
-export default props => (
-  <div>
+const Todo = props => (
+  <React.Fragment>
     <PageHeader name="Tarefas" small="Cadastro" />
     <TodoForm />
     <TodoList />
-  </div>
+  </React.Fragment>
 );
+
+export default Todo;
