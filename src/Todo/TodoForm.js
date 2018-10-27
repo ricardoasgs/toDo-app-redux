@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
-import { changeDescription, search, add } from "../Actions/todoActions";
+import { changeDescription, search, add, clear } from "../Actions/todoActions";
 
 import Grid from "../Template/Grid";
 import IconButton from "../Template/IconButton";
@@ -17,11 +17,11 @@ class TodoForm extends Component {
   }
 
   keyHandler(e) {
-    const { add, search, description } = this.props;
+    const { add, search, description, clear } = this.props;
     if (e.key === "Enter") {
-      e.shiftKey ? search() : add(description);
+      e.shiftKey ? search(description) : add(description);
     } else if (e.key === "Escape") {
-      this.props.handleClear();
+      clear();
     }
   }
 
@@ -46,11 +46,15 @@ class TodoForm extends Component {
             icon="plus"
             onClick={() => add(description)}
           />
-          <IconButton styles="info" icon="search" onClick={() => search()} />
+          <IconButton
+            styles="info"
+            icon="search"
+            onClick={() => search(description)}
+          />
           <IconButton
             styles="default"
             icon="close"
-            onClick={this.props.handleClear}
+            onClick={this.props.clear}
           />
         </Grid>
       </div>
@@ -63,7 +67,7 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch =>
-  bindActionCreators({ changeDescription, search, add }, dispatch);
+  bindActionCreators({ changeDescription, search, add, clear }, dispatch);
 
 export default connect(
   mapStateToProps,

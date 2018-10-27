@@ -6,6 +6,8 @@ import "../Template/custom.css";
 import { markAsDone, markAsPending, remove } from "../Actions/todoActions";
 
 const TodoList = props => {
+  const { description } = props;
+
   const renderRows = () => {
     const list = props.list || [];
     return list.map(todo => (
@@ -15,19 +17,19 @@ const TodoList = props => {
           <IconButton
             styles="success"
             icon="check"
-            onClick={() => props.markAsDone(todo)}
+            onClick={() => props.markAsDone(todo, description)}
             hide={todo.done}
           />
           <IconButton
             styles="warning"
             icon="undo"
-            onClick={() => props.markAsPending(todo)}
+            onClick={() => props.markAsPending(todo, description)}
             hide={!todo.done}
           />
           <IconButton
             styles="danger"
             icon="trash-o"
-            onClick={() => props.remove(todo)}
+            onClick={() => props.remove(todo, description)}
             hide={!todo.done}
           />
         </td>
@@ -49,7 +51,8 @@ const TodoList = props => {
 };
 
 const mapStateToProps = state => ({
-  list: state.todo.list
+  list: state.todo.list,
+  description: state.todo.description
 });
 
 const mapDispatchToProps = dispatch =>
