@@ -2,3 +2,9 @@
 export const DESCRIPTION_CHANGED = "DESCRIPTION_CHANGED";
 export const TODO_SEARCHED = "TODO_SEARCHED";
 export const TODO_CLEAR = "TODO_CLEAR";
+
+//types auth
+export const USER_FETCHED = "USER_FETCHED";
+export const TOKEN_VALIDATED = "TOKEN_VALIDATED";
+export const EMAIL_CHANGED = "EMAIL_CHANGED";
+export const PASSWORD_CHANGED = "PASSWORD_CHANGED";

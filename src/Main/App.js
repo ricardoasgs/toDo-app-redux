@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import Routes from "../Main/Routes";
 import Menu from "../Template/Menu";
 
 class App extends Component {
@@ -7,7 +6,7 @@ class App extends Component {
     return (
       <div className="container">
         <Menu />
-        <Routes />
+        <React.Fragment>{this.props.children}</React.Fragment>
       </div>
     );
   }
