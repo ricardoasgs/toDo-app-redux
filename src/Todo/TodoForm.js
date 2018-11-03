@@ -13,7 +13,7 @@ class TodoForm extends Component {
   }
 
   componentWillMount() {
-    this.props.search();
+    this.props.search(this.props.id);
   }
 
   keyHandler(e) {
@@ -26,7 +26,7 @@ class TodoForm extends Component {
   }
 
   render() {
-    const { add, search, description } = this.props;
+    const { add, search, description, id } = this.props;
     return (
       <div role="form" className="todoForm">
         <Grid cols="12 9 10">
@@ -44,12 +44,12 @@ class TodoForm extends Component {
           <IconButton
             styles="primary"
             icon="plus"
-            onClick={() => add(description)}
+            onClick={() => add(id, description)}
           />
           <IconButton
             styles="info"
             icon="search"
-            onClick={() => search(description)}
+            onClick={() => search(id, description)}
           />
           <IconButton
             styles="default"
@@ -63,7 +63,8 @@ class TodoForm extends Component {
 }
 
 const mapStateToProps = state => ({
-  description: state.todo.description
+  description: state.todo.description,
+  id: state.auth.user._id
 });
 
 const mapDispatchToProps = dispatch =>

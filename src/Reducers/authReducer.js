@@ -4,7 +4,9 @@ import {
   USERNAME_CHANGED,
   EMAIL_CHANGED,
   PASSWORD_CHANGED,
-  CONFIRM_PASSWORD_CHANGED
+  CONFIRM_PASSWORD_CHANGED,
+  FORM_CHANGED,
+  FORM_INITIED
 } from "../Actions/types";
 
 const userKey = "user";
@@ -15,7 +17,8 @@ const INITIAL_STATE = {
   username: "",
   email: "",
   password: "",
-  confirmPassword: ""
+  confirmPassword: "",
+  form: "LOGIN"
 };
 
 export default (state = INITIAL_STATE, action) => {
@@ -24,12 +27,19 @@ export default (state = INITIAL_STATE, action) => {
       if (action.payload) {
         return { ...state, validToken: true };
       } else {
-        localStorage.removeItem(userKey);
         return { ...state, validToken: false, user: null };
       }
     case USER_FETCHED:
-      localStorage.setItem(userKey, JSON.stringify(action.payload));
+      console.log("Logou");
       return { ...state, user: action.payload, validToken: true };
+    case FORM_INITIED:
+      return {
+        ...state,
+        username: "",
+        email: "",
+        password: "",
+        confirmPassword: ""
+      };
     case USERNAME_CHANGED:
       return {
         ...state,
@@ -49,6 +59,11 @@ export default (state = INITIAL_STATE, action) => {
       return {
         ...state,
         password: action.payload
+      };
+    case FORM_CHANGED:
+      return {
+        ...state,
+        form: action.payload
       };
     default:
       return state;

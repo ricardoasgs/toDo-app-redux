@@ -7,7 +7,8 @@ import {
   changeEmail,
   changePassword,
   changeConfirmPassword,
-  signup
+  signup,
+  changeForm
 } from "../Actions/authActions";
 
 class LoginForm extends Component {
@@ -25,7 +26,7 @@ class LoginForm extends Component {
   }
 
   render() {
-    const { username, email, password, passwordConfirm } = this.props;
+    const { name, email, password, passwordConfirm } = this.props;
     const { signup } = this.props;
     return (
       <div className="login-form">
@@ -38,7 +39,7 @@ class LoginForm extends Component {
               placeholder="Username"
               required="required"
               onChange={this.props.changeUsername}
-              value={this.props.username}
+              value={this.props.name}
             />
           </div>
           <div className="form-group">
@@ -74,7 +75,7 @@ class LoginForm extends Component {
           </div>
           <div className="form-group">
             <button
-              onClick={() => signup({ email, password })}
+              onClick={() => signup({ name, email, password, passwordConfirm })}
               className="btn btn-primary btn-block btn-custom"
             >
               Signup
@@ -83,7 +84,7 @@ class LoginForm extends Component {
           <div className="clearfix" />
         </form>
         <p className="text-center">
-          <a href="#">Login</a>
+          <a onClick={() => this.props.changeForm("LOGIN")}>Login</a>
         </p>
       </div>
     );
@@ -91,7 +92,7 @@ class LoginForm extends Component {
 }
 
 const mapStateToProps = state => ({
-  username: state.auth.username,
+  name: state.auth.username,
   email: state.auth.email,
   password: state.auth.password,
   confirmPassword: state.auth.confirmPassword
@@ -104,7 +105,8 @@ const mapDispatchToProps = dispatch =>
       changeEmail,
       changePassword,
       changeConfirmPassword,
-      signup
+      signup,
+      changeForm
     },
     dispatch
   );

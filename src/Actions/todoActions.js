@@ -7,16 +7,20 @@ export const changeDescription = event => ({
   payload: event.target.value
 });
 
-export const search = description => {
+export const search = (id, description) => {
+  console.log(id, description);
   const search = description ? `&description__regex=/${description}/` : "";
-  const request = axios.get(`${API_URL}?sort=-createdAt${search}`);
+  const user = `&userId=${id}`;
+  const request = axios.get(`${API_URL}?sort=-createdAt${user}${search}`);
   return { type: TODO_SEARCHED, payload: request };
 };
 
-export const add = description => {
+export const add = (userId, description) => {
+  const todo = { userId, description };
+  console.log(todo);
   return dispatch =>
     axios
-      .post(API_URL, { description })
+      .post(API_URL, { userId, description })
       .then(res => dispatch(clear()))
       .then(res => dispatch(search()));
 };

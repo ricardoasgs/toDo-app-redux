@@ -1,23 +1,27 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
-import { Link } from "react-router";
 
-import { login, changeEmail, changePassword } from "../Actions/authActions";
+import {
+  login,
+  changeEmail,
+  changePassword,
+  changeForm
+} from "../Actions/authActions";
 
 class LoginForm extends Component {
   constructor(props) {
     super(props);
     this.state = { loginMode: true };
-    this.keyHandler = this.keyHandler.bind(this);
+    // this.keyHandler = this.keyHandler.bind(this);
   }
 
-  keyHandler(e) {
-    if (e.key === "Enter") {
-      const { email, password } = this.props;
-      this.props.login({ email, password });
-    }
-  }
+  // keyHandler(e) {
+  //   if (e.key === "Enter") {
+  //     const { email, password } = this.props;
+  //     this.props.login({ email, password });
+  //   }
+  // }
 
   render() {
     const { login } = this.props;
@@ -44,7 +48,7 @@ class LoginForm extends Component {
               required="required"
               onChange={this.props.changePassword}
               value={this.props.password}
-              onKeyUp={this.keyHandler}
+              // onKeyUp={this.keyHandler}
             />
           </div>
           <div className="form-group">
@@ -62,7 +66,9 @@ class LoginForm extends Component {
           </div>
         </form>
         <p className="text-center">
-          <Link to="/signup">Create an Account</Link>
+          <a onClick={() => this.props.changeForm("SIGNUP")}>
+            Create an Account
+          </a>
         </p>
       </div>
     );
@@ -78,7 +84,10 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch =>
-  bindActionCreators({ login, changeEmail, changePassword }, dispatch);
+  bindActionCreators(
+    { login, changeEmail, changePassword, changeForm },
+    dispatch
+  );
 
 export default connect(
   mapStateToProps,
