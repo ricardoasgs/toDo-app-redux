@@ -5,16 +5,28 @@ import {
   TOKEN_VALIDATED,
   EMAIL_CHANGED,
   PASSWORD_CHANGED,
-  OAPI_URL
+  USERNAME_CHANGED,
+  CONFIRM_PASSWORD_CHANGED
 } from "./types";
+import { OAPI_URL } from "../Config/constants";
 
 export const changeEmail = event => ({
   type: EMAIL_CHANGED,
   payload: event.target.value
 });
 
+export const changeUsername = event => ({
+  type: USERNAME_CHANGED,
+  payload: event.target.value
+});
+
 export const changePassword = event => ({
   type: PASSWORD_CHANGED,
+  payload: event.target.value
+});
+
+export const changeConfirmPassword = event => ({
+  type: CONFIRM_PASSWORD_CHANGED,
   payload: event.target.value
 });
 

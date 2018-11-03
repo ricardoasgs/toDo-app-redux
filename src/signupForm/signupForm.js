@@ -1,9 +1,14 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
-import { Link } from "react-router";
 
-import { login, changeEmail, changePassword } from "../Actions/authActions";
+import {
+  changeUsername,
+  changeEmail,
+  changePassword,
+  changeConfirmPassword,
+  signup
+} from "../Actions/authActions";
 
 class LoginForm extends Component {
   constructor(props) {
@@ -14,23 +19,33 @@ class LoginForm extends Component {
 
   keyHandler(e) {
     if (e.key === "Enter") {
-      const { email, password } = this.props;
-      this.props.login({ email, password });
+      const { username, email, password, passwordConfirm } = this.props;
+      this.props.signup({ username, email, password, passwordConfirm });
     }
   }
 
   render() {
-    const { login } = this.props;
-    const { email, password } = this.props;
+    const { username, email, password, passwordConfirm } = this.props;
+    const { signup } = this.props;
     return (
       <div className="login-form">
         <form>
-          <h2 className="text-center">Login</h2>
+          <h2 className="text-center">Signup</h2>
           <div className="form-group">
             <input
               type="text"
               className="form-control"
               placeholder="Username"
+              required="required"
+              onChange={this.props.changeUsername}
+              value={this.props.username}
+            />
+          </div>
+          <div className="form-group">
+            <input
+              type="text"
+              className="form-control"
+              placeholder="Email"
               required="required"
               onChange={this.props.changeEmail}
               value={this.props.email}
@@ -44,25 +59,31 @@ class LoginForm extends Component {
               required="required"
               onChange={this.props.changePassword}
               value={this.props.password}
+            />
+          </div>
+          <div className="form-group">
+            <input
+              type="password"
+              className="form-control"
+              placeholder="Password"
+              required="required"
+              onChange={this.props.changePasswordConfirm}
+              value={this.props.passwordConfirm}
               onKeyUp={this.keyHandler}
             />
           </div>
           <div className="form-group">
             <button
-              onClick={() => login({ email, password })}
+              onClick={() => signup({ email, password })}
               className="btn btn-primary btn-block btn-custom"
             >
-              Log in
+              Signup
             </button>
           </div>
-          <div className="clearfix">
-            <a href="#" className="pull-right">
-              Forgot Password?
-            </a>
-          </div>
+          <div className="clearfix" />
         </form>
         <p className="text-center">
-          <Link to="/signup">Create an Account</Link>
+          <a href="#">Login</a>
         </p>
       </div>
     );
@@ -70,7 +91,6 @@ class LoginForm extends Component {
 }
 
 const mapStateToProps = state => ({
-  auth: state.auth,
   username: state.auth.username,
   email: state.auth.email,
   password: state.auth.password,
@@ -78,7 +98,16 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch =>
-  bindActionCreators({ login, changeEmail, changePassword }, dispatch);
+  bindActionCreators(
+    {
+      changeUsername,
+      changeEmail,
+      changePassword,
+      changeConfirmPassword,
+      signup
+    },
+    dispatch
+  );
 
 export default connect(
   mapStateToProps,

@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
+import { Link } from "react-router";
 
 import { logout } from "../Actions/authActions";
 
@@ -18,10 +19,10 @@ class Menu extends Component {
           <div id="navbar" className="navbar-collapse collapse">
             <ul className="nav navbar-nav">
               <li>
-                <a href="#/todos">Tarefas</a>
+                <Link to="todo">Tarefas</Link>
               </li>
               <li>
-                <a href="#/about">Sobre</a>
+                <Link to="about">Sobre</Link>
               </li>
             </ul>
             <ul className="nav navbar-nav navbar-right">

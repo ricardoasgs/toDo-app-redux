@@ -1,8 +1,10 @@
 import {
   TOKEN_VALIDATED,
   USER_FETCHED,
+  USERNAME_CHANGED,
   EMAIL_CHANGED,
-  PASSWORD_CHANGED
+  PASSWORD_CHANGED,
+  CONFIRM_PASSWORD_CHANGED
 } from "../Actions/types";
 
 const userKey = "user";
@@ -28,12 +30,22 @@ export default (state = INITIAL_STATE, action) => {
     case USER_FETCHED:
       localStorage.setItem(userKey, JSON.stringify(action.payload));
       return { ...state, user: action.payload, validToken: true };
+    case USERNAME_CHANGED:
+      return {
+        ...state,
+        username: action.payload
+      };
     case EMAIL_CHANGED:
       return {
         ...state,
         email: action.payload
       };
     case PASSWORD_CHANGED:
+      return {
+        ...state,
+        password: action.payload
+      };
+    case CONFIRM_PASSWORD_CHANGED:
       return {
         ...state,
         password: action.payload
